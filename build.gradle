@@ -1,0 +1,27 @@
+
+buildscript {
+    ext {
+        kotlin_version = "1.1.51"
+        butterknife_version = '8.5.1'
+        archRoomVersion = "1.0.0-alpha9-1"
+    }
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.jakewharton:butterknife-gradle-plugin:$butterknife_version"
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url 'https://maven.google.com' }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

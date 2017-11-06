@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MVP Test</string>
+
+    <!-- strings for login page -->
+    <string name="userid">User ID</string>
+    <string name="enteruserid">Enter user id here</string>
+    <string name="password">Password</string>
+    <string name="enterpassword">Enter password here</string>
+    <string name="login">Log In</string>
+    <string name="register">Register Now</string>
+    <string name="reset">Reset</string>
+
+</resources>
