@@ -14,6 +14,7 @@ import com.soumen.mvptest.register.presenter.IRegisterPresentation
 import com.soumen.mvptest.register.presenter.RegisterPresentationImpl
 import com.soumen.mvptest.register.view.IRegisterView
 import com.soumen.mvptest.roomcommonops.AppDatabase
+import kotlinx.android.synthetic.main.activity_login.*
 
 class RegisterActivity : AppCompatActivity(), IRegisterView {
 
@@ -49,9 +50,18 @@ class RegisterActivity : AppCompatActivity(), IRegisterView {
 
     @OnClick(R.id.btnRegRegister)
     internal fun onRegistrationButtonClicked() {
-        iRegisterPresentation.doRegister(edtRegUserId.text.toString(),
-                edtRegUserPassword.text.toString(), edtRegUserPasswordAgain.text.toString(),
-                edtRegUserEmail.text.toString(), edtRegUserPhone.text.toString().toLong())
+        var userId: String = edtRegUserId.text.toString()
+        var password: String = edtRegUserPassword.text.toString()
+        var passwordAgain: String = edtRegUserPasswordAgain.text.toString()
+        var email: String = edtRegUserEmail.text.toString()
+        var phone: String = edtRegUserPhone.text.toString()
+        var phone2: Long? = null
+        if(phone.equals("")){
+            phone2 = 0L
+        } else {
+            phone2 = phone.toLong()
+        }
+        iRegisterPresentation.doRegister(userId, password, passwordAgain, email, phone2)
     }
 
     private fun makeFieldsEmpty() {
@@ -65,21 +75,24 @@ class RegisterActivity : AppCompatActivity(), IRegisterView {
     override fun clearRegistrationForm() {
         makeFieldsEmpty()
     }
+
     override fun onRegistrationCompleted(registrationResultModel: RegistrationResultModel) {
         iRegisterPresentation.resetRegistratonForm()
-        if(!registrationResultModel.status) {
-            if(registrationResultModel.code == AppCommonValues.REG_INVALID_USER_ID) {
+        if (!registrationResultModel.status) {
+            if (registrationResultModel.code == AppCommonValues.REG_INVALID_USER_ID) {
                 Toast.makeText(this@RegisterActivity, "Invalid user id", Toast.LENGTH_SHORT).show()
-            } else if(registrationResultModel.code == AppCommonValues.REG_INVALID_PASSWORD) {
+            } else if (registrationResultModel.code == AppCommonValues.REG_INVALID_PASSWORD) {
                 Toast.makeText(this@RegisterActivity, "Invalid password, numbers only", Toast.LENGTH_SHORT).show()
-            } else if(registrationResultModel.code == AppCommonValues.REG_PASSWORDS_DIDNT_MATCH) {
+            } else if (registrationResultModel.code == AppCommonValues.REG_PASSWORDS_DIDNT_MATCH) {
                 Toast.makeText(this@RegisterActivity, "Passwords did not match", Toast.LENGTH_SHORT).show()
-            } else if(registrationResultModel.code == AppCommonValues.REG_INVALID_EMAIL) {
+            } else if (registrationResultModel.code == AppCommonValues.REG_INVALID_EMAIL) {
                 Toast.makeText(this@RegisterActivity, "Invalid email", Toast.LENGTH_SHORT).show()
-            } else if(registrationResultModel.code == AppCommonValues.REG_FAILED_CONSTRAINT) {
+            } else if (registrationResultModel.code == AppCommonValues.REG_FAILED_CONSTRAINT) {
                 Toast.makeText(this@RegisterActivity, "Sorry, this user id exists already", Toast.LENGTH_SHORT).show()
-            } else if(registrationResultModel.code == AppCommonValues.REG_FAILED) {
+            } else if (registrationResultModel.code == AppCommonValues.REG_FAILED) {
                 Toast.makeText(this@RegisterActivity, "Something went wrong, registration failed", Toast.LENGTH_SHORT).show()
+            } else if(registrationResultModel.code == AppCommonValues.REG_ALL_FIELDS_REQUIRED) {
+                Toast.makeText(this@RegisterActivity, "All fieldsare required", Toast.LENGTH_SHORT).show()
             }
         } else {
             Toast.makeText(this@RegisterActivity, "registration successful", Toast.LENGTH_SHORT).show()

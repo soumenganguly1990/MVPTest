@@ -3,6 +3,8 @@ package com.soumen.mvptest.dashboard.fragments
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -13,20 +15,19 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.soumen.mvptest.R
 import com.soumen.mvptest.dashboard.adapters.AllUserAdapter
-import com.soumen.mvptest.dashboard.presenter.DashBoardPresenterImpl
-import com.soumen.mvptest.dashboard.presenter.IDashBoardPresentation
-import com.soumen.mvptest.dashboard.view.IDashboardView
+import com.soumen.mvptest.dashboard.presenter.AllUserPresenterImpl
+import com.soumen.mvptest.dashboard.presenter.IAllUserPresenter
+import com.soumen.mvptest.dashboard.view.IAllUsersView
 import com.soumen.mvptest.extras.AppCommonValues
 import com.soumen.mvptest.roomcommonops.entities.UserEntity
 import android.support.v7.widget.DividerItemDecoration
 import android.util.Log
 import android.widget.Toast
 
-
 /**
  * Created by IN-LT-51 on 07-11-2017.
  */
-class AllUserFragment: Fragment(), IDashboardView, AllUserAdapter.AllUserClickListener {
+class AllUserFragment: Fragment(), IAllUsersView, AllUserAdapter.AllUserClickListener {
 
     @BindView(R.id.txtAllUserDet)
     lateinit var txtAllUserDet: TextView
@@ -40,7 +41,7 @@ class AllUserFragment: Fragment(), IDashboardView, AllUserAdapter.AllUserClickLi
     var selectedUserForDeletion: UserEntity? = null
 
     /* interface object for presenter */
-    lateinit var iDashBoardPresentation: IDashBoardPresentation
+    lateinit var iAllUserPresenter: IAllUserPresenter
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -53,8 +54,9 @@ class AllUserFragment: Fragment(), IDashboardView, AllUserAdapter.AllUserClickLi
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view: View = inflater!!.inflate(R.layout.fragment_all_user, container, false)
         ButterKnife.bind(this, view)
-        iDashBoardPresentation = DashBoardPresenterImpl(this)
-        iDashBoardPresentation.retrieveUserListFromRoomDb()
+        iAllUserPresenter = AllUserPresenterImpl(this)
+        iAllUserPresenter.retrieveUserListFromRoomDb()
+        Log.e("alluser frag", "oncreateview called")
         return view
     }
 
@@ -101,10 +103,17 @@ class AllUserFragment: Fragment(), IDashboardView, AllUserAdapter.AllUserClickLi
 
     override fun onDeleteUserClick(position: Int) {
         selectedUserForDeletion = userList!!.get(position)
-        iDashBoardPresentation.deleteUserFromRoomDb(userList!!.get(position))
+        iAllUserPresenter.deleteUserFromRoomDb(userList!!.get(position))
     }
 
     override fun onViewPasswordClick(position: Int) {
-        Log.e("Selected delete", "For user id " + userList!!.get(position).getPassword())
+        Toast.makeText(this.activity, "Password is " + userList!!.get(position).getPassword(), Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        fun reloadFragmentUponRequest(fragment: Fragment) {
+            val ft = fragment.fragmentManager.beginTransaction()
+            ft.detach(fragment).attach(fragment).commit()
+        }
     }
 }

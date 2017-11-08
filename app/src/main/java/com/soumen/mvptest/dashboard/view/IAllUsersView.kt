@@ -5,7 +5,7 @@ import com.soumen.mvptest.roomcommonops.entities.UserEntity
 /**
  * Created by IN-LT-51 on 07-11-2017.
  */
-interface IDashboardView {
+interface IAllUsersView {
     fun onAllUserListRetrieved(userList: ArrayList<UserEntity>?)
     fun onSelectedUserDeleted(status: Int)
 }

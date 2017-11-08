@@ -26,6 +26,7 @@ class AppCommonValues {
         val REG_FAILED = 205
         val REG_FAILED_CONSTRAINT = 206
         val REG_SUCCESS = 207
+        val REG_ALL_FIELDS_REQUIRED = 208
 
         /* after login is done, save user  entity in this object */
         var userEntity: UserEntity? = null

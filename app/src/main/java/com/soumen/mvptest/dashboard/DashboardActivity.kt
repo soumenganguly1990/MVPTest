@@ -62,4 +62,8 @@ class DashboardActivity : AppCompatActivity() {
             }
         })
     }
+
+    fun requestAllUserListUpdation() {
+        AllUserFragment.reloadFragmentUponRequest(allUserFragment)
+    }
 }

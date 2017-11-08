@@ -11,7 +11,7 @@ class AllUserModel: IAllUserModel {
 
     override fun retrieveFullListOfUsersFromDb(): ArrayList<UserEntity> {
         try {
-            var allUserList: ArrayList<UserEntity> = ArrayList()
+            var allUserList: ArrayList<UserEntity>
             allUserList = ArrayList(AppDatabase.getAppDatabase(AppCommonValues.context)
                     .allUserListDao().getListOfAllUsers())
             if(allUserList!! == null || allUserList!!.size == 0) {

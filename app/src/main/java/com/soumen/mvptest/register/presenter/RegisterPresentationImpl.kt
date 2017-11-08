@@ -1,7 +1,9 @@
 package com.soumen.mvptest.register.presenter
 
+import com.soumen.mvptest.extras.AppCommonValues
 import com.soumen.mvptest.register.model.IUserRegistrationModel
 import com.soumen.mvptest.register.model.RegistrationModel
+import com.soumen.mvptest.register.model.RegistrationResultModel
 import com.soumen.mvptest.register.view.IRegisterView
 
 /**
@@ -21,7 +23,12 @@ class RegisterPresentationImpl: IRegisterPresentation {
     }
 
     override fun doRegister(userId: String, password: String, passwordAgain: String, email: String, phone: Long) {
-        iUserregistrationModel = RegistrationModel(userId, password, passwordAgain, email, phone)
-        iRegisterView.onRegistrationCompleted(iUserregistrationModel.registerTheUser())
+        if(userId.equals("") || password.equals("") || passwordAgain.equals("") ||
+                email.equals("") || phone == 0L) {
+            iRegisterView.onRegistrationCompleted(RegistrationResultModel(false, AppCommonValues.REG_ALL_FIELDS_REQUIRED))
+        } else {
+            iUserregistrationModel = RegistrationModel(userId, password, passwordAgain, email, phone)
+            iRegisterView.onRegistrationCompleted(iUserregistrationModel.registerTheUser())
+        }
     }
 }

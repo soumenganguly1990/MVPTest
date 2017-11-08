@@ -3,6 +3,7 @@ package com.soumen.mvptest.dashboard.dashboarddbops
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Query
+import android.arch.persistence.room.Update
 import com.soumen.mvptest.roomcommonops.entities.UserEntity
 
 /**
@@ -16,4 +17,7 @@ abstract class AllUserListDao {
 
     @Delete
     abstract fun deleteAnUser(user: UserEntity): Int
+
+    @Update
+    abstract fun updateUser(user: UserEntity): Int
 }
