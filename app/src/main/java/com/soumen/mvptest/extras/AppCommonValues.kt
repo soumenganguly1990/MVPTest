@@ -1,6 +1,7 @@
 package com.soumen.mvptest.extras
 
 import android.content.Context
+import com.soumen.mvptest.roomcommonops.entities.UserEntity
 
 /**
  * Created by IN-LT-51 on 06-11-2017.
@@ -25,5 +26,12 @@ class AppCommonValues {
         val REG_FAILED = 205
         val REG_FAILED_CONSTRAINT = 206
         val REG_SUCCESS = 207
+
+        /* after login is done, save user  entity in this object */
+        var userEntity: UserEntity? = null
+
+        /* tab texts */
+        var TAB_PROFILE: String = "Profile"
+        var TAB_ALL_USERS: String = "All Users"
     }
 }

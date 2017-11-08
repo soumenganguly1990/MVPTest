@@ -9,7 +9,7 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.soumen.mvptest.R
 import com.soumen.mvptest.extras.AppCommonValues
-import com.soumen.mvptest.register.entity.RegistrationResultModel
+import com.soumen.mvptest.register.model.RegistrationResultModel
 import com.soumen.mvptest.register.presenter.IRegisterPresentation
 import com.soumen.mvptest.register.presenter.RegisterPresentationImpl
 import com.soumen.mvptest.register.view.IRegisterView
@@ -25,6 +25,8 @@ class RegisterActivity : AppCompatActivity(), IRegisterView {
     lateinit var edtRegUserPasswordAgain: EditText
     @BindView(R.id.edtRegUserEmail)
     lateinit var edtRegUserEmail: EditText
+    @BindView(R.id.edtRegUserPhone)
+    lateinit var edtRegUserPhone: EditText
 
     /* presenter object */
     lateinit var iRegisterPresentation: IRegisterPresentation
@@ -40,10 +42,16 @@ class RegisterActivity : AppCompatActivity(), IRegisterView {
         iRegisterPresentation = RegisterPresentationImpl(this)
     }
 
+    override fun onResume() {
+        super.onResume()
+        AppCommonValues.context = this@RegisterActivity
+    }
+
     @OnClick(R.id.btnRegRegister)
     internal fun onRegistrationButtonClicked() {
         iRegisterPresentation.doRegister(edtRegUserId.text.toString(),
-                edtRegUserPassword.text.toString(), edtRegUserPasswordAgain.text.toString(), edtRegUserEmail.text.toString())
+                edtRegUserPassword.text.toString(), edtRegUserPasswordAgain.text.toString(),
+                edtRegUserEmail.text.toString(), edtRegUserPhone.text.toString().toLong())
     }
 
     private fun makeFieldsEmpty() {
@@ -51,6 +59,7 @@ class RegisterActivity : AppCompatActivity(), IRegisterView {
         edtRegUserPassword.setText("")
         edtRegUserPasswordAgain.setText("")
         edtRegUserEmail.setText("")
+        edtRegUserPhone.setText("")
     }
 
     override fun clearRegistrationForm() {

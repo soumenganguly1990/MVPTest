@@ -2,8 +2,7 @@ package com.soumen.mvptest.register.model
 
 import android.database.sqlite.SQLiteConstraintException
 import com.soumen.mvptest.extras.AppCommonValues
-import com.soumen.mvptest.register.entity.RegistrationResultModel
-import com.soumen.mvptest.register.entity.UserEntity
+import com.soumen.mvptest.roomcommonops.entities.UserEntity
 import com.soumen.mvptest.roomcommonops.AppDatabase
 
 /**
@@ -15,12 +14,14 @@ class RegistrationModel: IUserRegistrationModel {
     var password: String
     var passwordAgain: String
     var email: String
+    var phone: Long
 
-    constructor(userId: String, password: String, passwordAgain: String, email: String) {
+    constructor(userId: String, password: String, passwordAgain: String, email: String, phone: Long) {
         this.userId = userId
         this.password = password
         this.passwordAgain = passwordAgain
         this.email = email
+        this.phone = phone
     }
 
     private fun validateUserId(): Boolean {
@@ -48,11 +49,12 @@ class RegistrationModel: IUserRegistrationModel {
                 if(validatePassword()) {
                     if(validateEmail()) {
                         var u1: UserEntity = UserEntity()
-                        u1.setUserId(userId)
-                        u1.setPassword(password)
-                        u1.setEmail(email)
+                        u1!!.setUserId(userId)
+                        u1!!.setPassword(password)
+                        u1!!.setEmail(email)
+                        u1!!.setPhone(phone)
                         try {
-                            AppDatabase.getAppDatabase(AppCommonValues.context!!).registrationDao().createNewUser(u1)
+                            AppDatabase.getAppDatabase(AppCommonValues.context!!).registrationDao().createNewUser(u1!!)
                         } catch(s: SQLiteConstraintException) {
                             return RegistrationResultModel(false, AppCommonValues.REG_FAILED_CONSTRAINT)
                         } catch (e: Exception) {

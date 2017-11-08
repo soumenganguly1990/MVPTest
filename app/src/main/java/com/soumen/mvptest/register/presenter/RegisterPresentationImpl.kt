@@ -1,5 +1,6 @@
 package com.soumen.mvptest.register.presenter
 
+import com.soumen.mvptest.register.model.IUserRegistrationModel
 import com.soumen.mvptest.register.model.RegistrationModel
 import com.soumen.mvptest.register.view.IRegisterView
 
@@ -9,7 +10,7 @@ import com.soumen.mvptest.register.view.IRegisterView
 class RegisterPresentationImpl: IRegisterPresentation {
 
     var iRegisterView: IRegisterView
-    lateinit var registrationModel: RegistrationModel
+    lateinit var iUserregistrationModel: IUserRegistrationModel
 
     constructor(iRegisterView: IRegisterView) {
         this.iRegisterView = iRegisterView
@@ -19,8 +20,8 @@ class RegisterPresentationImpl: IRegisterPresentation {
         iRegisterView.clearRegistrationForm()
     }
 
-    override fun doRegister(userId: String, password: String, passwordAgain: String, email: String) {
-        registrationModel = RegistrationModel(userId, password, passwordAgain, email)
-        iRegisterView.onRegistrationCompleted(registrationModel.registerTheUser())
+    override fun doRegister(userId: String, password: String, passwordAgain: String, email: String, phone: Long) {
+        iUserregistrationModel = RegistrationModel(userId, password, passwordAgain, email, phone)
+        iRegisterView.onRegistrationCompleted(iUserregistrationModel.registerTheUser())
     }
 }

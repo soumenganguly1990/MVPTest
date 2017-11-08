@@ -9,8 +9,9 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.soumen.mvptest.R
+import com.soumen.mvptest.dashboard.DashboardActivity
 import com.soumen.mvptest.extras.AppCommonValues
-import com.soumen.mvptest.login.entity.LoginStatus
+import com.soumen.mvptest.login.model.LoginStatus
 import com.soumen.mvptest.login.presenter.ILoginPresenter
 import com.soumen.mvptest.login.presenter.LoginpresenterImpl
 import com.soumen.mvptest.login.view.ILoginView
@@ -39,6 +40,11 @@ class LoginActivity : AppCompatActivity(), ILoginView {
         iLoginPresenter = LoginpresenterImpl(this)
 
         AppDatabase.getAppDatabase(AppCommonValues.context!!)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        AppCommonValues.context = this@LoginActivity
     }
 
     @OnClick(R.id.btnReset)
@@ -70,6 +76,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
     override fun onLoginResultRetrieved(loginStatus: LoginStatus) {
         if(loginStatus.status) {
             Toast.makeText(this@LoginActivity, "Login Successful", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
         } else {
             if(loginStatus.code == AppCommonValues.LOGIN_FORM_FAILURE) {
                 Toast.makeText(this@LoginActivity, "Login failed", Toast.LENGTH_SHORT).show()
@@ -80,7 +87,6 @@ class LoginActivity : AppCompatActivity(), ILoginView {
     }
 
     override fun onDestroy() {
-        AppDatabase.destroyInstance()
         super.onDestroy()
     }
 }

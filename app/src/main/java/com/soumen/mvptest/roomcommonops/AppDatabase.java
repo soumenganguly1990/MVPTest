@@ -5,8 +5,9 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+import com.soumen.mvptest.dashboard.dashboarddbops.AllUserListDao;
 import com.soumen.mvptest.login.logindbops.LoginDao;
-import com.soumen.mvptest.register.entity.UserEntity;
+import com.soumen.mvptest.roomcommonops.entities.UserEntity;
 import com.soumen.mvptest.register.registrationdbops.RegistrationDao;
 
 /**
@@ -19,6 +20,7 @@ public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
     public abstract RegistrationDao registrationDao();
     public abstract LoginDao loginDao();
+    public abstract AllUserListDao allUserListDao();
 
     public static AppDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {

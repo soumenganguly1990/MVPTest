@@ -2,7 +2,7 @@ package com.soumen.mvptest.register.registrationdbops
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
-import com.soumen.mvptest.register.entity.UserEntity
+import com.soumen.mvptest.roomcommonops.entities.UserEntity
 
 /**
  * Created by IN-LT-51 on 06-11-2017.

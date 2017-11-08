@@ -5,5 +5,5 @@ package com.soumen.mvptest.register.presenter
  */
 interface IRegisterPresentation {
     fun resetRegistratonForm()
-    fun doRegister(userId: String, password: String, passwordAgain: String, email: String)
+    fun doRegister(userId: String, password: String, passwordAgain: String, email: String, phone: Long)
 }

@@ -1,4 +1,4 @@
-package com.soumen.mvptest.register.entity
+package com.soumen.mvptest.roomcommonops.entities
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
@@ -18,6 +18,9 @@ class UserEntity {
 
     @ColumnInfo(name = "email")
     private lateinit var email: String
+
+    @ColumnInfo(name = "phone")
+    private var phone: Long = 0
 
     public fun getUserId(): String {
         return userId
@@ -41,5 +44,13 @@ class UserEntity {
 
     public fun setEmail(email: String) {
         this.email = email
+    }
+
+    public fun getPhone(): Long {
+        return phone!!
+    }
+
+    public fun setPhone(phone: Long) {
+        this.phone = phone
     }
 }

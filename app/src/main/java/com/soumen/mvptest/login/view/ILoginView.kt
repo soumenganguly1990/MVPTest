@@ -1,6 +1,6 @@
 package com.soumen.mvptest.login.view
 
-import com.soumen.mvptest.login.entity.LoginStatus
+import com.soumen.mvptest.login.model.LoginStatus
 
 /**
  * Created by IN-LT-51 on 03-11-2017.

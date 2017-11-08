@@ -1,8 +1,7 @@
 package com.soumen.mvptest.login.model
 
 import com.soumen.mvptest.extras.AppCommonValues
-import com.soumen.mvptest.login.entity.LoginStatus
-import com.soumen.mvptest.register.entity.UserEntity
+import com.soumen.mvptest.roomcommonops.entities.UserEntity
 import com.soumen.mvptest.roomcommonops.AppDatabase
 
 /**
@@ -14,9 +13,10 @@ class UserLoginModel(): IUserLoginModel {
         if(userId.equals("") || password.equals("")) {
             return LoginStatus(false, AppCommonValues.LOGIN_FORM_EMPTY_FIELDS)
         } else {
-            var userEntity: UserEntity = AppDatabase.getAppDatabase(AppCommonValues.context!!).loginDao()
-                    .validateUserLogin(userId, password)
+            var userEntity: UserEntity = AppDatabase.getAppDatabase(AppCommonValues.context!!)
+                    .loginDao().validateUserLogin(userId, password)
             if(userEntity != null) {
+                AppCommonValues.userEntity = userEntity
                 return LoginStatus(true, AppCommonValues.LOGIN_FORM_SUCCESS)
             } else {
                 return LoginStatus(false, AppCommonValues.LOGIN_FORM_FAILURE)

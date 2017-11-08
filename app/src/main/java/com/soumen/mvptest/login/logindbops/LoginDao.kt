@@ -2,7 +2,7 @@ package com.soumen.mvptest.login.logindbops
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Query
-import com.soumen.mvptest.register.entity.UserEntity
+import com.soumen.mvptest.roomcommonops.entities.UserEntity
 
 /**
  * Created by IN-LT-51 on 06-11-2017.

@@ -1,5 +1,6 @@
 package com.soumen.mvptest.login.presenter
 
+import com.soumen.mvptest.login.model.IUserLoginModel
 import com.soumen.mvptest.login.model.UserLoginModel
 import com.soumen.mvptest.login.view.ILoginView
 
@@ -9,7 +10,7 @@ import com.soumen.mvptest.login.view.ILoginView
 class LoginpresenterImpl: ILoginPresenter {
 
     var iLoginView: ILoginView
-    lateinit var userLoginModel: UserLoginModel
+    lateinit var iUserLoginModel: IUserLoginModel
 
     constructor(iLoginView: ILoginView) {
         this.iLoginView = iLoginView
@@ -20,7 +21,7 @@ class LoginpresenterImpl: ILoginPresenter {
     }
 
     override fun loginFromDb(userId: String, password: String) {
-        userLoginModel = UserLoginModel()
-        iLoginView.onLoginResultRetrieved(userLoginModel.tryLoginFromDbWithUserData(userId, password))
+        iUserLoginModel = UserLoginModel()
+        iLoginView.onLoginResultRetrieved(iUserLoginModel.tryLoginFromDbWithUserData(userId, password))
     }
 }
